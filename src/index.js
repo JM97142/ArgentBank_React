@@ -3,7 +3,11 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import App from './pages/Homepage/App';
+import Header from './components/Header/Header';
+import Home from './pages/Homepage';
+import SignIn from './pages/Signin/signin';
+import UserPage from './pages/User/userpage';
+import Footer from './components/Footer/Footer';
 import reportWebVitals from './reportWebVitals';
 
 const contenair = document.getElementById('root');
@@ -12,9 +16,13 @@ const root = createRoot(contenair);
 root.render(
   <React.StrictMode>
     <Router>
+      <Header />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Home />} />
+        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/user' element={<UserPage />} />
       </Routes>
+      <Footer />
     </Router>
   </React.StrictMode>
 )
