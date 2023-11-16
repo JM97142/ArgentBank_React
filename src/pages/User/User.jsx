@@ -1,4 +1,4 @@
-function UserPage() {
+function User() {
     return (
         <main className="main bg-dark">
             <div className="header">
@@ -12,7 +12,7 @@ function UserPage() {
                     <p className="account-amount">$2,082.79</p>
                     <p className="account-amount-description">Available Balance</p>
                 </div>
-                <div class="account-content-wrapper cta">
+                <div className="account-content-wrapper cta">
                     <button className="transaction-button">View transactions</button>
                 </div>
             </section>
@@ -40,4 +40,4 @@ function UserPage() {
     )
 }
 
-export default UserPage
+export default User
