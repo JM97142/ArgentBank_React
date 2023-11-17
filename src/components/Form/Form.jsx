@@ -1,119 +1,107 @@
-import { useNavigate } from 'react-router-dom'
 
-import { login } from '../../redux/action'
-import store from '../../redux/store'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import React from "react"
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { setUsername, setPassword } from "../redux/features/formSlice";
+import { loginSuccess } from "../redux/features/authSlice";
 
-function Form() {
-    const navigate = useNavigate()
-    const statutReq = useSelector(state => state.status)
+//API
+import { userLogin } from "../../api/api";
 
-    let rememberMe = document.getElementById('remember-me')
-    let email = document.getElementById('email')
-    let password = document.getElementById('password')
-    let form = document.getElementsByTagName('form')[0]
-    let divInputUsername = document.getElementsByClassName('input-wrapper')[0]
+export function Form() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const userName = useSelector((state) => state.formulaire.username);
+    const password = useSelector((state) => state.formulaire.password);
+    const [rememberMe, setRememberMe] = useState(false);
 
-    useEffect(() => {
-        if (statutReq === 'void') {
-            recupererSession()
+    //Changement dans les entrées du formulaire
+    const handleUsernameChange = (event) => {
+        dispatch(setUsername(event.target.value));
+        console.log(userName);
+    };
+
+    const handlePasswordChange = (event) => {
+        dispatch(setPassword(event.target.value));
+        console.log(password);
+    };
+
+    const handleRememberMeChange = (event) => {
+        setRememberMe(event.target.checked);
+    };
+
+    //Soumission du formulaire
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!userName.trim() || !password.trim()) {
+            alert("Username and password cannot be empty");
+            return;
         }
-        if (statutReq === 'connecte') {
-            if (rememberMe.checked) {
-                sauvegarderSession()
+
+        let infos = {
+            userName: userName,
+            password: password,
+        };
+
+        const response = await userLogin(infos);
+        console.log(response);
+
+        if (response.status === 200) {
+            if (rememberMe) {
+                localStorage.setItem("token", response.body.token);
             } else {
-                supprimerSession()
+                localStorage.removeItem("token");
             }
-            navigate('/Profile')
+            dispatch(loginSuccess(response.body.token));
+            navigate("/user");
         }
-        if (statutReq === 'error') {
-            let pError = document.getElementsByClassName('error')[0]
-            if (pError === undefined) {
-                pError = document.createElement('p')
-                pError.classList.add('error')
-                pError.textContent = 'Invalid username or password'
-                form.appendChild(pError)
-            }
+    };
+    // Si l'utilisateur est déjà connecté
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            dispatch(loginSuccess(storedToken));
+            navigate("/user");
         }
-    }, [statutReq, navigate])
+    }, [dispatch, navigate]);
 
-    function connexion(e) {
-        e.preventDefault()
-        email = document.getElementById('email')
-        password = document.getElementById('password')
-        if (email !== (undefined, null) || password !== (undefined, null)) {
-            store.dispatch(login(email.value, password.value))
-        }
-    }
-
-    function sauvegarderSession() {
-        try {
-            email = document.getElementById('email')
-            password = document.getElementById('password')
-            if (email !== (undefined, null) || password !== (undefined, null)) {
-                sessionStorage.setItem('email', email.value)
-                sessionStorage.setItem('password', password.value)
-                sessionStorage.setItem('rememberMe', rememberMe.checked)
-            }
-        } catch (e) {
-            console.warn(e)
-        }
-    }
-
-    function supprimerSession() {
-        try {
-            divInputUsername = document.getElementsByClassName('input-wrapper')[0]
-            const dataList = document.getElementById('usernames')
-            if (dataList !== (undefined, null)) divInputUsername.removeChild(dataList)
-            sessionStorage.clear()
-        } catch (e) {
-            console.warn(e)
-        }
-    }
-
-    function recupererSession() {
-        try {
-            email = document.getElementById('email')
-            password = document.getElementById('password')
-            rememberMe = document.getElementById('remember-me')
-            divInputUsername = document.getElementsByClassName('input-wrapper')[0]
-            if (email !== (undefined, null) || password !== (undefined, null)) {
-                email.value = sessionStorage.getItem('email')
-                password.value = sessionStorage.getItem('password')
-                rememberMe.checked = sessionStorage.getItem('rememberMe')
-                let dataList = document.getElementById('usernames')
-                if (dataList === (undefined, null) && email.value !== '') {
-                    dataList = document.createElement('datalist')
-                    const optionUsername = document.createElement('option')
-                    optionUsername.value = email.value
-                    dataList.id = 'usernames'
-                    divInputUsername.appendChild(dataList)
-                    dataList.appendChild(optionUsername)
-                }
-            }
-        } catch (e) {
-            console.warn(e)
-        }
-    }
     return (
         <section className='sign-in-content'>
             <i className='fa fa-user-circle sign-in-icon' />
             <h1>Sign In</h1>
-            <form>
-                <div className='input-wrapper'>
-                    <label htmlFor='username'>Username</label>
-                    <input type='text' list='usernames' id='email' required />
+            <form onSubmit={handleSubmit}>
+                <div className="input-wrapper">
+                    <label htmlFor="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        value={userName}
+                        onChange={handleUsernameChange}
+                        required
+                    />
                 </div>
-                <div className='input-wrapper'>
-                    <label htmlFor='password'>Password</label>
-                    <input type='password' id='password' required />
+                <div className="input-wrapper">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        required
+                    />
                 </div>
-                <div className='input-remember'>
-                    <input type='checkbox' id='remember-me' />
-                    <label htmlFor='remember-me'>Remember me</label>
+                <div className="input-remember">
+                    <input type="checkbox"
+                        id="remember-me"
+                        checked={rememberMe}
+                        onChange={handleRememberMeChange}
+                    />
+                    <label htmlFor="remember-me">Remember me</label>
                 </div>
-                <button className='sign-in-button' onClick={connexion}>
+                <button type="submit" className="sign-in-button">
                     Sign In
                 </button>
             </form>
