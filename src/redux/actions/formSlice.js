@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const formSlice = createSlice({
     name: "form",
@@ -8,14 +8,14 @@ const formSlice = createSlice({
     },
     reducers: {
         setUsername: (state, action) => {
-            state.username = action.payload;
+            state.username = action.payload
         },
         setPassword: (state, action) => {
-            state.password = action.payload;
+            state.password = action.payload
         },
     }
 })
 
-export const { setUsername, setPassword } = formSlice.actions;
+export const { setUsername, setPassword } = formSlice.actions
 
-export default formSlice.reducer;
+export default formSlice.reducer

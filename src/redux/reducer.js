@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
-import formSlice from "./actions/formSlice";
-import tokenSlice from "./actions/tokenSlice";
+import { combineReducers } from "redux"
+import formSlice from "./actions/formSlice"
+import loginSlice from "./actions/loginSlice"
 
 export const userReducer = combineReducers({
-    login: tokenSlice,
+    login: loginSlice,
     formulaire: formSlice,
 })

@@ -1,10 +1,20 @@
 import { Link } from 'react-router-dom'
-import { deconnexion } from '../../redux/action'
-import store from '../../redux/store'
+// Redux
+import { useDispatch, useSelector } from "react-redux"
+import { logout } from '../../redux/actions/loginSlice'
 
 import Logo from '../../assets/argentBankLogo.png'
 
 function Header() {
+    const dispatch = useDispatch()
+    const accessToken = useSelector((state) => state.login.token)
+    const userName = useSelector((state) => state.userInfo.userName)
+
+    const handleLogOut = () => {
+        dispatch(logout());
+        localStorage.removeItem("token");
+    }
+
     return (
         <nav className="main-nav">
 
@@ -16,16 +26,23 @@ function Header() {
                 />
                 <h1 className="sr-only">Argent Bank</h1>
             </Link>
-            <div className='notConnected'>
+            <div> {accessToken ? (
+                <Link className="main-nav-item" to="/user">
+                    <i className="fa fa-user"></i>
+                    {userName}
+                </Link>
+            ) : (
                 <Link className="main-nav-item" to="/login">
-                    <i className="fa fa-user-circle"></i>Sign In
+                    <i className="fa fa-user-circle"></i>
+                    Sign In
                 </Link>
-            </div>
-            <div className='connected'>
-                <Link className="main-nav-item" to='/' onClick={(e) => { store.dispatch(deconnexion()) }}>
-                    <i className='fa-solid fa-arrow-right-from-bracket' />
-                    <p> Sign out </p>
-                </Link>
+            )}
+                {accessToken && (
+                    <Link className="main-nav-item" onClick={handleLogOut}>
+                        <i className='fa-solid fa-arrow-right-from-bracket' />
+                        Sign Out
+                    </Link>
+                )}
             </div>
         </nav>
     )
