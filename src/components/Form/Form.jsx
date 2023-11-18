@@ -1,13 +1,12 @@
-
 import React from "react"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+// Redux
 import { setUsername, setPassword } from "../redux/features/formSlice";
 import { loginSuccess } from "../redux/features/authSlice";
-
-//API
+// API
 import { userLogin } from "../../api/api";
 
 export function Form() {
@@ -17,17 +16,15 @@ export function Form() {
     const password = useSelector((state) => state.formulaire.password);
     const [rememberMe, setRememberMe] = useState(false);
 
-    //Changement dans les entrées du formulaire
+    //Entrées du formulaire
     const handleUsernameChange = (event) => {
         dispatch(setUsername(event.target.value));
         console.log(userName);
     };
-
     const handlePasswordChange = (event) => {
         dispatch(setPassword(event.target.value));
         console.log(password);
     };
-
     const handleRememberMeChange = (event) => {
         setRememberMe(event.target.checked);
     };
@@ -59,9 +56,10 @@ export function Form() {
             navigate("/user");
         }
     };
-    // Si l'utilisateur est déjà connecté
+
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
+
         if (storedToken) {
             dispatch(loginSuccess(storedToken));
             navigate("/user");
@@ -75,9 +73,7 @@ export function Form() {
             <form onSubmit={handleSubmit}>
                 <div className="input-wrapper">
                     <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
+                    <input type="text" id="username"
                         value={userName}
                         onChange={handleUsernameChange}
                         required
@@ -85,17 +81,14 @@ export function Form() {
                 </div>
                 <div className="input-wrapper">
                     <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
+                    <input type="password" id="password"
                         value={password}
                         onChange={handlePasswordChange}
                         required
                     />
                 </div>
                 <div className="input-remember">
-                    <input type="checkbox"
-                        id="remember-me"
+                    <input type="checkbox" id="remember-me"
                         checked={rememberMe}
                         onChange={handleRememberMeChange}
                     />
