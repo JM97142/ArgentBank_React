@@ -1,3 +1,5 @@
+import './user.css'
+
 function User() {
     return (
         <main className="main bg-dark">

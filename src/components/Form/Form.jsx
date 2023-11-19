@@ -1,19 +1,18 @@
-import React from "react"
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { useEffect } from "react"
 // Redux
-import { setUsername, setPassword } from "../redux/features/formSlice"
-import { loginSuccess } from "../redux/features/authSlice"
+import { setUsername, setPassword } from '../../redux/actions/formSlice'
+import { loginSuccess } from '../../redux/actions/loginSlice'
 // API
-import { userLogin } from "../../api/api"
+import { userLogin } from '../../api/api'
 
 export function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userName = useSelector((state) => state.formulaire.username)
-    const password = useSelector((state) => state.formulaire.password)
+    const userName = useSelector((state) => state.form.username)
+    const userPassword = useSelector((state) => state.form.password)
     const [rememberMe, setRememberMe] = useState(false)
 
     //Entrées du formulaire
@@ -23,7 +22,7 @@ export function Form() {
     }
     const handlePasswordChange = (event) => {
         dispatch(setPassword(event.target.value))
-        console.log(password);
+        console.log(userPassword);
     }
     const handleRememberMeChange = (event) => {
         setRememberMe(event.target.checked);
@@ -33,14 +32,14 @@ export function Form() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if (!userName.trim() || !password.trim()) {
+        if (!userName.trim() || !userPassword.trim()) {
             console.log('Input vide')
             return
         }
 
         let infos = {
             userName: userName,
-            password: password,
+            password: userPassword,
         }
 
         const response = await userLogin(infos);
@@ -82,7 +81,7 @@ export function Form() {
                 <div className="input-wrapper">
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password"
-                        value={password}
+                        value={userPassword}
                         onChange={handlePasswordChange}
                         required
                     />

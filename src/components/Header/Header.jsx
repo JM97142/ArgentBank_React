@@ -1,3 +1,5 @@
+import './header.css'
+
 import { Link } from 'react-router-dom'
 // Redux
 import { useDispatch, useSelector } from "react-redux"
@@ -17,7 +19,6 @@ function Header() {
 
     return (
         <nav className="main-nav">
-
             <Link className="main-nav-logo" to="/">
                 <img
                     className="main-nav-logo-image"
