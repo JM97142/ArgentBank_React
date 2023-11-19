@@ -6,7 +6,7 @@ import { useEffect } from "react"
 import { setUsername, setPassword } from '../../redux/actions/formSlice'
 import { loginSuccess } from '../../redux/actions/loginSlice'
 // API
-import { userLogin } from '../../api/api'
+import userLogin from '../../api/api'
 
 export function Form() {
     const dispatch = useDispatch()
@@ -43,7 +43,6 @@ export function Form() {
         }
 
         const response = await userLogin(infos);
-        console.log(response);
 
         if (response.status === 200) {
             if (rememberMe) {
