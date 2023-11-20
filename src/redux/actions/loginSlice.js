@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const loginSlice = createSlice({
-    name: "login",
+    name: 'login',
     initialState,
     reducers: {
         // Stocke le token si connecté
@@ -19,8 +19,8 @@ const loginSlice = createSlice({
         logout: (state) => {
             state.token = null
             return state
-        },
-    },
+        }
+    }
 })
 
 export const { loginSuccess, logout } = loginSlice.actions

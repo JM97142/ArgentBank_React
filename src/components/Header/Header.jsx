@@ -14,7 +14,7 @@ function Header() {
 
     const handleLogOut = () => {
         dispatch(logout());
-        localStorage.removeItem("token");
+        localStorage.removeItem('token');
     }
 
     return (
@@ -37,13 +37,12 @@ function Header() {
                     <i className="fa fa-user-circle"></i>
                     Sign In
                 </Link>
+            )} {accessToken && (
+                <Link className="main-nav-item" onClick={handleLogOut}>
+                    <i className='fa-solid fa-arrow-right-from-bracket' />
+                    Sign Out
+                </Link>
             )}
-                {accessToken && (
-                    <Link className="main-nav-item" onClick={handleLogOut}>
-                        <i className='fa-solid fa-arrow-right-from-bracket' />
-                        Sign Out
-                    </Link>
-                )}
             </div>
         </nav>
     )
