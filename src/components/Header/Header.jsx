@@ -9,10 +9,16 @@ import Logo from '../../assets/argentBankLogo.png'
 
 function Header() {
     const dispatch = useDispatch()
-    const accessToken = useSelector((state) => state.login.token)
-    const userName = useSelector((state) => state.userInfo.userName)
 
-    const handleLogOut = () => {
+    const accessToken = useSelector((state) => {
+        console.log(state)
+        return state.user.login.token
+    })
+    const userName = useSelector((state) => {
+        return state.user.user.userName
+    })
+
+    const actionLogOut = () => {
         dispatch(logout());
         localStorage.removeItem('token');
     }
@@ -38,7 +44,7 @@ function Header() {
                     Sign In
                 </Link>
             )} {accessToken && (
-                <Link className="main-nav-item" onClick={handleLogOut}>
+                <Link className="main-nav-item" onClick={actionLogOut}>
                     <i className='fa-solid fa-arrow-right-from-bracket' />
                     Sign Out
                 </Link>

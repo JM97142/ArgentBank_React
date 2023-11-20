@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const userSlice = createSlice({
-    name: "userInfo",
+    name: 'userInfo',
     initialState: {
         id: null,
         email: null,
@@ -13,28 +13,27 @@ const userSlice = createSlice({
     },
     reducers: {
         setUserProfile: (state, action) => {
-            state.id = action.payload.id;
-            state.email = action.payload.email;
-            state.firstName = action.payload.firstName;
-            state.lastName = action.payload.lastName;
-            state.userName = action.payload.userName;
+            state.id = action.payload.id
+            state.email = action.payload.email
+            state.firstName = action.payload.firstName
+            state.lastName = action.payload.lastName
+            state.userName = action.payload.userName
         },
-        // Action pour basculer l'état "isOpen" (ouvert/fermé)
         toggleOpen: (state) => {
-            state.isOpen = !state.isOpen;
+            state.isOpen = !state.isOpen
         },
-        // Action pour préparer l'édition du nom d'utilisateur
+        // Action edit username
         editUserName: (state) => {
-            state.userNameEdit = state.userName;
+            state.userNameEdit = state.userName
         },
         setUserNameEdit: (state, action) => {
-            state.userNameEdit = action.payload;
+            state.userNameEdit = action.payload
         },
     },
-});
+})
 
-// Exporter les actions générées automatiquement
-export const { setUserProfile, toggleOpen, editUserName, setUserNameEdit } = userSlice.actions;
+// Export actions
+export const { setUserProfile, toggleOpen, editUserName, setUserNameEdit } = userSlice.actions
 
 
-export default userSlice.reducer;
+export default userSlice.reducer

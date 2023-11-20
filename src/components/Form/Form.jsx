@@ -11,20 +11,18 @@ import userLogin from '../../api/api'
 export function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userName = useSelector((state) => state.form.username)
-    const userPassword = useSelector((state) => state.form.password)
+    const userName = useSelector((state) => state.user.form.username)
+    const userPassword = useSelector((state) => state.user.form.password)
     const [rememberMe, setRememberMe] = useState(false)
 
     //Entrées du formulaire
-    const handleUsernameChange = (event) => {
+    const actionUsernameChange = (event) => {
         dispatch(setUsername(event.target.value))
-        console.log(userName);
     }
-    const handlePasswordChange = (event) => {
+    const actionPasswordChange = (event) => {
         dispatch(setPassword(event.target.value))
-        console.log(userPassword);
     }
-    const handleRememberMeChange = (event) => {
+    const actionRememberMeChange = (event) => {
         setRememberMe(event.target.checked);
     }
 
@@ -73,7 +71,7 @@ export function Form() {
                     <label htmlFor="username">Username</label>
                     <input type="text" id="username"
                         value={userName}
-                        onChange={handleUsernameChange}
+                        onChange={actionUsernameChange}
                         required
                     />
                 </div>
@@ -81,14 +79,14 @@ export function Form() {
                     <label htmlFor="password">Password</label>
                     <input type="password" id="password"
                         value={userPassword}
-                        onChange={handlePasswordChange}
+                        onChange={actionPasswordChange}
                         required
                     />
                 </div>
                 <div className="input-remember">
                     <input type="checkbox" id="remember-me"
                         checked={rememberMe}
-                        onChange={handleRememberMeChange}
+                        onChange={actionRememberMeChange}
                     />
                     <label htmlFor="remember-me">Remember me</label>
                 </div>

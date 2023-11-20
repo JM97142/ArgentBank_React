@@ -1,10 +1,10 @@
 import './user.css'
 
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUserProfile, toggleOpen, editUserName, setUserNameEdit } from '../../redux/actions/userSlice'
-
+// Components
 import AccountSection from '../../components/Account/Account'
 
 const databaseUrl = 'http://localhost:3001/api/v1/user/'
@@ -33,9 +33,10 @@ const accountInfos = [
 const User = () => {
     const navigate = useNavigate()
     const accessToken = localStorage.getItem("token")
+
     useEffect(() => {
         if (!accessToken) {
-            navigate("/signin")
+            navigate('/signin')
         }
     }, [accessToken, navigate]);
 
@@ -49,6 +50,7 @@ const User = () => {
 
     async function submitUserName(e) {
         e.preventDefault()
+
         const userRequest = {
             method: "PUT",
             headers: {
@@ -58,6 +60,7 @@ const User = () => {
             },
             body: JSON.stringify({ userName: userNameEdit })
         }
+
         const response = await fetch(
             databaseUrl + 'profile',
             userRequest
@@ -69,7 +72,6 @@ const User = () => {
         }
 
         const data = await response.json()
-        console.log(data)
         dispatch(setUserProfile(data.body))
         dispatch(toggleOpen(false))
     }
@@ -103,7 +105,7 @@ const User = () => {
         fetchUserProfile()
     }, [dispatch, userName])
 
-    function handleUserNameChange(event) {
+    function actionUserNameChange(event) {
         dispatch(setUserNameEdit(event.target.value))
     }
 
@@ -111,7 +113,7 @@ const User = () => {
         dispatch(toggleOpen(!Opened))
     }
 
-    function handleEditClick() {
+    function actionEditClick() {
         dispatch(setUserNameEdit(userName))
         dispatch(toggleOpen(true));
     }
@@ -139,7 +141,7 @@ const User = () => {
                                     type="text"
                                     id="usernameEdit"
                                     value={userNameEdit}
-                                    onChange={handleUserNameChange}
+                                    onChange={actionUserNameChange}
                                 />
                                 <input
                                     type="text"
@@ -175,7 +177,7 @@ const User = () => {
                             <br />
                             {firstName + " " + lastName}
                         </h1>
-                        <button onClick={handleEditClick} className="edit-button">
+                        <button onClick={actionEditClick} className="edit-button">
                             Edit Name
                         </button>
                     </>
