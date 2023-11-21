@@ -32,7 +32,7 @@ const accountInfos = [
 
 const User = () => {
     const navigate = useNavigate()
-    const accessToken = localStorage.getItem("token")
+    const accessToken = localStorage.getItem('token')
 
     useEffect(() => {
         if (!accessToken) {

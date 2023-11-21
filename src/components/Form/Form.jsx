@@ -8,7 +8,7 @@ import { loginSuccess } from '../../redux/actions/loginSlice'
 // API
 import userLogin from '../../api/api'
 
-export function Form() {
+function Form() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const userName = useSelector((state) => state.user.form.username)
@@ -27,11 +27,10 @@ export function Form() {
     }
 
     //Soumission du formulaire
-    const handleSubmit = async (e) => {
+    const actionSubmit = async (e) => {
         e.preventDefault()
 
         if (!userName.trim() || !userPassword.trim()) {
-            console.log('Input vide')
             return
         }
 
@@ -44,9 +43,9 @@ export function Form() {
 
         if (response.status === 200) {
             if (rememberMe) {
-                localStorage.setItem("token", response.body.token)
+                localStorage.setItem('token', response.body.token)
             } else {
-                localStorage.removeItem("token")
+                localStorage.removeItem('token')
             }
             dispatch(loginSuccess(response.body.token))
             navigate("/user")
@@ -54,19 +53,19 @@ export function Form() {
     }
 
     useEffect(() => {
-        const storedToken = localStorage.getItem("token")
+        const storedToken = localStorage.getItem('token')
 
         if (storedToken) {
             dispatch(loginSuccess(storedToken))
-            navigate("/user")
+            navigate('/user')
         }
     }, [dispatch, navigate])
 
     return (
-        <section className='sign-in-content'>
-            <i className='fa fa-user-circle sign-in-icon' />
+        <section className="sign-in-content">
+            <i className="fa fa-user-circle sign-in-icon" />
             <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={actionSubmit}>
                 <div className="input-wrapper">
                     <label htmlFor="username">Username</label>
                     <input type="text" id="username"
