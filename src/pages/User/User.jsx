@@ -33,7 +33,7 @@ const accountTransactions = [
 const User = () => {
     const navigate = useNavigate()
     const accessToken = localStorage.getItem('token')
-
+    // Redirection si token absent
     useEffect(() => {
         if (!accessToken) {
             navigate('/signin')
@@ -48,6 +48,7 @@ const User = () => {
     const userNameEdit = useSelector((state) => state.user.user.userNameEdit);
     const Opened = useSelector((state) => state.user.user.isOpen);
 
+    // Edit user profil
     async function submitUserName(e) {
         e.preventDefault()
 
@@ -105,14 +106,13 @@ const User = () => {
         fetchUserProfile()
     }, [dispatch, userName])
 
+    // Entrées du formulaire
     function actionUserNameChange(event) {
         dispatch(setUserNameEdit(event.target.value))
     }
-
     function cancelSubmitUserName() {
         dispatch(toggleOpen(!Opened))
     }
-
     function actionEditClick() {
         dispatch(setUserNameEdit(userName))
         dispatch(toggleOpen(true));
@@ -127,6 +127,7 @@ const User = () => {
     return (
         <main className="main bg-dark">
             <div className="header">
+                {/* Gestion affichage formulaire */}
                 {Opened && (
                     <form>
                         <h1>Edit user info</h1>
@@ -183,7 +184,7 @@ const User = () => {
                     </>
                 )}
             </div>
-
+            {/* Affichage transactions account */}
             <h2 className="sr-only">Accounts</h2>
             {accountTransactions.map((account) => (
                 <AccountSection
