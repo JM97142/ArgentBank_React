@@ -37,7 +37,7 @@ Populate database with two users
 
 ### Installing and launching Front-end
 
-Clone the repository of SportSee Front-End:
+Clone the repository of ArgentBank Front-End:
 
 `git clone https://github.com/JM97142/ArgentBank_React`
 

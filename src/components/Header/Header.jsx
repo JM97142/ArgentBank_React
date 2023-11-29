@@ -9,15 +9,14 @@ import Logo from '../../assets/argentBankLogo.png'
 
 function Header() {
     const dispatch = useDispatch()
-
+    // Récupération du token via state manager
     const accessToken = useSelector((state) => {
-        console.log(state)
         return state.user.login.token
     })
     const userName = useSelector((state) => {
         return state.user.user.userName
     })
-
+    // Déconnexion
     const actionLogOut = () => {
         dispatch(logout());
         localStorage.removeItem('token');
@@ -39,7 +38,7 @@ function Header() {
                     {userName}
                 </Link>
             ) : (
-                <Link className="main-nav-item" to="/login">
+                <Link className="main-nav-item" to="/signin">
                     <i className="fa fa-user-circle"></i>
                     Sign In
                 </Link>

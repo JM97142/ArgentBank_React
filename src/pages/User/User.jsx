@@ -7,7 +7,7 @@ import { setUserProfile, toggleOpen, editUserName, setUserNameEdit } from '../..
 // Components
 import AccountSection from '../../components/Account/Account'
 
-const databaseUrl = 'http://localhost:3001/api/v1/user/'
+const databaseUrl = 'http://localhost:3001/api/v1/'
 
 const accountInfos = [
     {
@@ -41,12 +41,12 @@ const User = () => {
     }, [accessToken, navigate]);
 
     const dispatch = useDispatch();
-    const token = useSelector((state) => state.login.token);
-    const firstName = useSelector((state) => state.userInfo.firstName);
-    const lastName = useSelector((state) => state.userInfo.lastName);
-    const userName = useSelector((state) => state.userInfo.userName);
-    const userNameEdit = useSelector((state) => state.userInfo.userNameEdit);
-    const Opened = useSelector((state) => state.userInfo.isOpen);
+    const token = useSelector((state) => state.user.login.token);
+    const firstName = useSelector((state) => state.user.user.firstName);
+    const lastName = useSelector((state) => state.user.user.lastName);
+    const userName = useSelector((state) => state.user.user.userName);
+    const userNameEdit = useSelector((state) => state.user.user.userNameEdit);
+    const Opened = useSelector((state) => state.user.user.isOpen);
 
     async function submitUserName(e) {
         e.preventDefault()
@@ -62,7 +62,7 @@ const User = () => {
         }
 
         const response = await fetch(
-            databaseUrl + 'profile',
+            databaseUrl + 'user/profile',
             userRequest
         )
 
@@ -86,7 +86,7 @@ const User = () => {
             }
 
             const response = await fetch(
-                databaseUrl + 'profile',
+                databaseUrl + 'user/profile',
                 requestProfile
             )
 

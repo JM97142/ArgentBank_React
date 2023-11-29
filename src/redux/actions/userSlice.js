@@ -12,6 +12,7 @@ const userSlice = createSlice({
         lastName: null,
     },
     reducers: {
+        // Profil user
         setUserProfile: (state, action) => {
             state.id = action.payload.id
             state.email = action.payload.email

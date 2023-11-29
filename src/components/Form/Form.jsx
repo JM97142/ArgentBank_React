@@ -34,12 +34,12 @@ function Form() {
             return
         }
 
-        let infos = {
+        let formInputs = {
             userName: userName,
             password: userPassword,
         }
 
-        const response = await userLogin(infos);
+        const response = await userLogin(formInputs);
 
         if (response.status === 200) {
             if (rememberMe) {
