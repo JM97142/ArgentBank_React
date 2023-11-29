@@ -9,7 +9,7 @@ import AccountSection from '../../components/Account/Account'
 
 const databaseUrl = 'http://localhost:3001/api/v1/'
 
-const accountInfos = [
+const accountTransactions = [
     {
         id: 1,
         title: "Argent Bank Checking (x8349)",
@@ -185,7 +185,7 @@ const User = () => {
             </div>
 
             <h2 className="sr-only">Accounts</h2>
-            {accountInfos.map((account) => (
+            {accountTransactions.map((account) => (
                 <AccountSection
                     title={account.title}
                     amount={account.amount}
