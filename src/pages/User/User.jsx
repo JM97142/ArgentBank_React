@@ -3,7 +3,7 @@ import './user.css'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUserProfile, toggleOpen, editUserName, setUserNameEdit } from '../../redux/actions/userSlice'
+import { setUserProfile, toggleOpen, editUserFirstame, setUserFirstnameEdit, editUserLastname, setUserLastnameEdit } from '../../redux/actions/userSlice'
 // Components
 import AccountSection from '../../components/Account/Account'
 
@@ -45,7 +45,8 @@ const User = () => {
     const firstName = useSelector((state) => state.user.user.firstName);
     const lastName = useSelector((state) => state.user.user.lastName);
     const userName = useSelector((state) => state.user.user.userName);
-    const userNameEdit = useSelector((state) => state.user.user.userNameEdit);
+    const firstNameEdit = useSelector((state) => state.user.user.firstNameEdit);
+    const lastNameEdit = useSelector((state) => state.user.user.lastNameEdit);
     const Opened = useSelector((state) => state.user.user.isOpen);
 
     // Edit user profil
@@ -59,7 +60,10 @@ const User = () => {
                 Authorization: `Bearer ${token}`,
                 accept: "application/json",
             },
-            body: JSON.stringify({ userName: userNameEdit })
+            body: JSON.stringify({
+                firstName: firstNameEdit,
+                lastName: lastNameEdit
+            })
         }
 
         const response = await fetch(
@@ -102,25 +106,31 @@ const User = () => {
                 dispatch(setUserProfile(data.body))
             }
         }
-
         fetchUserProfile()
     }, [dispatch, userName])
 
     // Entrées du formulaire
-    function actionUserNameChange(event) {
-        dispatch(setUserNameEdit(event.target.value))
+    function actionFirstnameChange(event) {
+        dispatch(setUserFirstnameEdit(event.target.value))
     }
+    function actionLastnameChange(event) {
+        dispatch(setUserLastnameEdit(event.target.value))
+    }
+    // Soumission du formulaire
+    function actionEditUsername() {
+        dispatch(setUserFirstnameEdit(firstName))
+        dispatch(setUserLastnameEdit(lastName))
+        dispatch(toggleOpen(true));
+    }
+    // Close form
     function cancelSubmitUserName() {
         dispatch(toggleOpen(!Opened))
-    }
-    function actionEditClick() {
-        dispatch(setUserNameEdit(userName))
-        dispatch(toggleOpen(true));
     }
 
     useEffect(() => {
         if (!Opened) {
-            dispatch(editUserName())
+            dispatch(editUserFirstame())
+            dispatch(editUserLastname())
         }
     }, [Opened, dispatch])
 
@@ -133,28 +143,19 @@ const User = () => {
                         <h1>Edit user info</h1>
                         <div className="input-label-wrapper">
                             <div className="input-wrapper-edit">
-                                <label htmlFor="usernameEdit">User name</label>
                                 <label htmlFor="FirstNameEdit">First name</label>
-                                <label htmlFor="LastNameEdit">Last name</label>
-                            </div>
-                            <div className="input-wrapper-edit">
-                                <input
-                                    type="text"
-                                    id="usernameEdit"
-                                    value={userNameEdit}
-                                    onChange={actionUserNameChange}
-                                />
                                 <input
                                     type="text"
                                     id="FirstNameEdit"
-                                    value={firstName}
-                                    readOnly
+                                    value={firstNameEdit}
+                                    onChange={actionFirstnameChange}
                                 />
+                                <label htmlFor="LastNameEdit">Lastname</label>
                                 <input
                                     type="text"
                                     id="LastNameEdit"
-                                    value={lastName}
-                                    readOnly
+                                    value={lastNameEdit}
+                                    onChange={actionLastnameChange}
                                 />
                                 <div className="edit-buttons-container">
                                     <button onClick={submitUserName} className="sign-in-button">
@@ -178,7 +179,7 @@ const User = () => {
                             <br />
                             {firstName + " " + lastName}
                         </h1>
-                        <button onClick={actionEditClick} className="edit-button">
+                        <button onClick={actionEditUsername} className="edit-button">
                             Edit Name
                         </button>
                     </>

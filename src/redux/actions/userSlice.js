@@ -6,10 +6,10 @@ const userSlice = createSlice({
         id: null,
         email: null,
         isOpen: false,
-        userName: null,
-        userNameEdit: null,
         firstName: null,
+        firstNameEdit: null,
         lastName: null,
+        lastNameEdit: null
     },
     reducers: {
         // Profil user
@@ -18,23 +18,28 @@ const userSlice = createSlice({
             state.email = action.payload.email
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
-            state.userName = action.payload.userName
         },
         toggleOpen: (state) => {
             state.isOpen = !state.isOpen
         },
         // Action edit username
-        editUserName: (state) => {
-            state.userNameEdit = state.userName
+        editUserFirstame: (state) => {
+            state.firstNameEdit = state.firstName
         },
-        setUserNameEdit: (state, action) => {
-            state.userNameEdit = action.payload
+        setUserFirstnameEdit: (state, action) => {
+            state.firstNameEdit = action.payload
         },
-    },
+        editUserLastname: (state) => {
+            state.lastNameEdit = state.firstName
+        },
+        setUserLastnameEdit: (state, action) => {
+            state.lastNameEdit = action.payload
+        }
+    }
 })
 
 // Export actions
-export const { setUserProfile, toggleOpen, editUserName, setUserNameEdit } = userSlice.actions
+export const { setUserProfile, toggleOpen, editUserFirstame, setUserFirstnameEdit, editUserLastname, setUserLastnameEdit } = userSlice.actions
 
 
 export default userSlice.reducer
