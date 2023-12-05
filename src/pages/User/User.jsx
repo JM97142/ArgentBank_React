@@ -2,8 +2,16 @@ import './user.css'
 
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+// Redux
 import { useDispatch, useSelector } from 'react-redux'
-import { setUserProfile, toggleOpen, editUserFirstame, setUserFirstnameEdit, editUserLastname, setUserLastnameEdit } from '../../redux/actions/userSlice'
+import {
+    setUserProfile,
+    toggleOpen,
+    editUserFirstame,
+    setUserFirstnameEdit,
+    editUserLastname,
+    setUserLastnameEdit
+} from '../../redux/actions/userSlice'
 // Components
 import AccountSection from '../../components/Account/Account'
 

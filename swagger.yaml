@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: Swagger ArgentBank - OpenAPI 3.0
+  description: |-
+    All available API endpoints for transactions
+  version: 1.0.0
+servers:
+  - url: https://localhost:3001/api/v1
+tags:
+  - name: Transactions Module
+    description: API for transactions
+paths:
+  /user/transactions:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get transactions by month
+      description: Return multiple transactions filter by month
+      operationId: getTransactionsByMonth
+      parameters:
+        - name: month
+          in: query
+          description: Month to filter by.
+          required: false
+          schema:
+            type: array
+            items: 
+              type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transactions'
+        '400':
+          description: Invalid
+        '404':
+          description: Transactions not found
+  /user/transactions/{transactionId}:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get transaction by id
+      description: Return a single transactions
+      operationId: getTransactionById
+      parameters:
+        - name: transactionId
+          in: path
+          description: ID of transactions to return.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Transaction not found
+    put:
+      tags:
+        - Transactions Module
+      summary: Update transaction
+      description: Update a transaction
+      operationId: updateTransaction
+      parameters:
+        - name: transactionId
+          in: path
+          description: name that need to be update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent transaction.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionUpdate'
+        '400':
+          description: Invalid id supplied
+        '404':
+          description: Transaction not found
+    delete:
+      tags:
+        - Transactions Module
+      summary: Delete transactions
+      description: Delete a single transaction
+      operationId: deleteTransactions
+      parameters:
+        - name: transactionId
+          in: path
+          description: ID of transaction that needs to be deleted.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid
+        '404':
+          description: Transaction not found
+components:
+  schemas:
+    Transactions:
+      required:
+        - id
+        - userId
+        - date
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        userId:
+          type: string
+          format: int64
+        name: 
+          type: string
+          format: int64
+        date:
+          type: number
+          format: date-time
+      xml:
+        name: transactions
+    Transaction:
+      required:
+        - id
+        - userId
+        - recipient
+        - date
+        - amont
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        userId:
+          type: string
+          format: int64
+        name:
+          type: string
+          format: int64
+        recipient:
+          type: string
+          format: int64
+        date:
+          type: number
+          format: date-time
+        amont:
+          type: number
+          format: int64
+        category:
+          type: string
+          format: int64
+      xml:
+        name: transaction
+    TransactionUpdate:
+      required:
+       - id
+       - category
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+        name:
+          type: string
+          format: int64
+        category:
+          type: string
+          format: int64
+      xml:
+        name: transactionUpdate
