@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 20px;
+    padding: 15px 20px;
 }
 
 .main-nav a {
@@ -38,6 +38,7 @@
 .main-nav-logo {
     display: flex;
     align-items: center;
+    box-shadow: 5px 5px 5px #999999;
 }
 
 .main-nav-logo-image {

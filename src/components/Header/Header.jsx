@@ -38,7 +38,6 @@ function Header() {
                 {accessToken ? (
                     <div className="main-nav-links">
                         <img
-                            className="main-nav-items-image"
                             src={userIcon}
                             alt="user icon"
                         />

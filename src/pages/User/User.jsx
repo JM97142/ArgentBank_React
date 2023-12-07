@@ -151,14 +151,12 @@ const User = () => {
                         <h1>Edit user info</h1>
                         <div className="input-label-wrapper">
                             <div className="input-wrapper-edit">
-                                <label htmlFor="FirstNameEdit">First name</label>
                                 <input
                                     type="text"
                                     id="FirstNameEdit"
                                     placeholder="Tony"
                                     onChange={actionFirstnameChange}
                                 />
-                                <label htmlFor="LastNameEdit">Lastname</label>
                                 <input
                                     type="text"
                                     id="LastNameEdit"
