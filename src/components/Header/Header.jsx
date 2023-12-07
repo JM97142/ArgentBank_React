@@ -7,6 +7,7 @@ import { logout } from '../../redux/actions/loginSlice'
 
 import Logo from '../../assets/argentBankLogo.png'
 import userIcon from '../../assets/compte.png'
+import logOutIcon from '../../assets/deconnexion.png'
 
 function Header() {
     const dispatch = useDispatch()
@@ -16,7 +17,7 @@ function Header() {
     })
     const userName = useSelector((state) => {
         console.log(userName)
-        return state.user.user.userName
+        return state.user.user.firstName
     })
     // Déconnexion
     const actionLogOut = () => {
@@ -36,20 +37,38 @@ function Header() {
             </Link>
             <div className="main-nav-items">
                 {accessToken ? (
-                    <Link className="main-nav-links" to="/user">
-                        <img src={userIcon} alt="user icon" />
-                        {userName}
-                    </Link>
+                    <div className="main-nav-links">
+                        <img
+                            className="main-nav-items-image"
+                            src={userIcon}
+                            alt="user icon"
+                        />
+                        <Link to="/user">
+                            {userName}
+                        </Link>
+                    </div>
                 ) : (
-                    <Link className="main-nav-links" to="/signin">
-                        <img src={userIcon} alt="user icon" />
-                        Sign In
-                    </Link>
+                    <div className="main-nav-links">
+                        <img
+                            className="main-nav-items-image"
+                            src={userIcon}
+                            alt="user icon"
+                        />
+                        <Link to="/signin">
+                            Sign In
+                        </Link>
+                    </div>
                 )} {accessToken && (
-                    <Link className="main-nav-links" onClick={actionLogOut}>
-                        <i className="fa fa-sign-out"></i>
-                        Sign Out
-                    </Link>
+                    <div className="main-nav-links">
+                        <img
+                            className="main-nav-items-image"
+                            src={logOutIcon}
+                            alt="logout icon"
+                        />
+                        <Link onClick={actionLogOut}>
+                            Sign Out
+                        </Link>
+                    </div>
                 )}
             </div>
         </nav>
