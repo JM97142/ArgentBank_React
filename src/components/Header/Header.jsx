@@ -16,7 +16,6 @@ function Header() {
         return state.user.login.token
     })
     const userName = useSelector((state) => {
-        console.log(userName)
         return state.user.user.firstName
     })
     // Déconnexion

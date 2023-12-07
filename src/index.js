@@ -9,7 +9,7 @@ import store from './redux/store';
 // Components
 import Header from './components/Header/Header';
 import Home from './pages/Homepage';
-import SignIn from './pages/Signin/Signin';
+import SignIn from './pages/Signin/signin';
 import User from './pages/User/User';
 import Error from './pages/Error/Error';
 import Footer from './components/Footer/Footer';
