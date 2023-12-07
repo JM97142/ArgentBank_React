@@ -14,12 +14,17 @@
     color: #42b983;
 }
 
-.main-nav-item {
+.main-nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.main-nav-links {
     text-decoration: none;
     margin-right: 0.5rem;
 }
 
-.main-nav-item:hover {
+.main-nav-links:hover {
     text-decoration: underline;
 }
 

@@ -144,7 +144,7 @@ const User = () => {
 
     return (
         <main className="main bg-dark">
-            <div className="header">
+            <div className="user-header">
                 {/* Gestion affichage formulaire */}
                 {Opened && (
                     <form>
@@ -155,25 +155,22 @@ const User = () => {
                                 <input
                                     type="text"
                                     id="FirstNameEdit"
-                                    value={firstNameEdit}
+                                    placeholder="Tony"
                                     onChange={actionFirstnameChange}
                                 />
                                 <label htmlFor="LastNameEdit">Lastname</label>
                                 <input
                                     type="text"
                                     id="LastNameEdit"
-                                    value={lastNameEdit}
+                                    placeholder="Jarvis"
                                     onChange={actionLastnameChange}
                                 />
                                 <div className="edit-buttons-container">
-                                    <button onClick={submitUserName} className="sign-in-button">
+                                    <button onClick={submitUserName} className="save-button">
                                         Save
                                     </button>
-                                    <button
-                                        onClick={cancelSubmitUserName}
-                                        className="sign-in-button"
-                                    >
-                                        cancel
+                                    <button onClick={cancelSubmitUserName} className="cancel-button">
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
