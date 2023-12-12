@@ -104,8 +104,7 @@ const User = () => {
             )
 
             if (!response.ok) {
-                navigate('/')
-                alert('Vous devez être connecter pour accéder à votre profil!')
+                navigate('/signin')
             }
 
             const data = await response.json()
