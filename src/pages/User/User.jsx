@@ -44,7 +44,7 @@ const User = () => {
     // Redirection si token absent
     useEffect(() => {
         if (!accessToken) {
-            navigate('/signin')
+            navigate('/')
         }
     }, [accessToken, navigate]);
 
@@ -104,7 +104,7 @@ const User = () => {
             )
 
             if (!response.ok) {
-                navigate('/signin')
+                navigate('/')
                 alert('Vous devez être connecter pour accéder à votre profil!')
             }
 
@@ -115,7 +115,7 @@ const User = () => {
             }
         }
         fetchUserProfile()
-    }, [dispatch, userName])
+    }, [dispatch, navigate, token, userName])
 
     // Entrées du formulaire
     function actionFirstnameChange(event) {
