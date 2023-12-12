@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from "react"
@@ -13,7 +12,6 @@ function Form() {
     const navigate = useNavigate()
     const userName = useSelector((state) => state.user.form.username)
     const userPassword = useSelector((state) => state.user.form.password)
-    const [rememberMe, setRememberMe] = useState(false)
 
     //Entrées du formulaire
     const actionUsernameChange = (event) => {
@@ -21,9 +19,6 @@ function Form() {
     }
     const actionPasswordChange = (event) => {
         dispatch(setPassword(event.target.value))
-    }
-    const actionRememberMeChange = (event) => {
-        setRememberMe(event.target.checked);
     }
 
     //Soumission du formulaire
@@ -42,11 +37,7 @@ function Form() {
         const response = await userLogin(formInputs);
 
         if (response.status === 200) {
-            if (rememberMe) {
-                localStorage.setItem('token', response.body.token)
-            } else {
-                localStorage.removeItem('token')
-            }
+            localStorage.setItem('token', response.body.token)
             dispatch(loginSuccess(response.body.token))
             navigate("/user")
         }
@@ -83,10 +74,7 @@ function Form() {
                     />
                 </div>
                 <div className="input-remember">
-                    <input type="checkbox" id="remember-me"
-                        checked={rememberMe}
-                        onChange={actionRememberMeChange}
-                    />
+                    <input type="checkbox" id="remember-me" />
                     <label htmlFor="remember-me">Remember me</label>
                 </div>
                 <button type="submit" className="sign-in-button">
