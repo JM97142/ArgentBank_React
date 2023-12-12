@@ -39,6 +39,8 @@ paths:
           description: Invalid
         '404':
           description: Transactions not found
+        '500':
+          description: Internal Server Error
   /user/transactions/{transactionId}:
     get:
       tags:
@@ -64,6 +66,8 @@ paths:
           description: Invalid id supplied
         '404':
           description: Transaction not found
+        '500':
+          description: Internal Server Error
     put:
       tags:
         - Transactions Module
@@ -95,6 +99,8 @@ paths:
           description: Invalid id supplied
         '404':
           description: Transaction not found
+        '500':
+          description: Internal Server Error
     delete:
       tags:
         - Transactions Module
@@ -115,6 +121,8 @@ paths:
           description: Invalid
         '404':
           description: Transaction not found
+        '500':
+          description: Internal Server Error
 components:
   schemas:
     Account:

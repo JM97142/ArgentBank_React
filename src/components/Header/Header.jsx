@@ -53,7 +53,7 @@ function Header() {
                             alt="user icon"
                         />
                         <Link to="/signin">
-                            Sign In
+                            Sign in
                         </Link>
                     </div>
                 )} {accessToken && (
@@ -64,7 +64,7 @@ function Header() {
                             alt="logout icon"
                         />
                         <Link onClick={actionLogOut}>
-                            Sign Out
+                            Sign out
                         </Link>
                     </div>
                 )}

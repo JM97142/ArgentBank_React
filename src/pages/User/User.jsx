@@ -104,8 +104,8 @@ const User = () => {
             )
 
             if (!response.ok) {
-                const errorMessage = `An error has occurred: ${response.status}`
-                throw new Error(errorMessage)
+                navigate('/signin')
+                alert('Vous devez être connecter pour accéder à votre profil!')
             }
 
             const data = await response.json()
