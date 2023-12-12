@@ -104,7 +104,7 @@ const User = () => {
             )
 
             if (!response.ok) {
-                navigate('/signin')
+                navigate('/')
             }
 
             const data = await response.json()
