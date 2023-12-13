@@ -17,15 +17,7 @@ paths:
       summary: Get transactions by month
       description: Return multiple transactions filter by month
       operationId: getTransactionsByMonth
-      parameters:
-        - name: month
-          in: query
-          description: Month to filter by.
-          required: false
-          schema:
-            type: array
-            items: 
-              type: string
+      parameters: []
       responses:
         '200':
           description: Successful operation
